@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name = "viewport" content="width = device-width, initial-scale = 1 user-scalable = no">
+    <title>移动医生</title>
+    <link rel = "stylesheet" href = "bootstrap-3.3.5-dist/css/bootstrap.min.css" />
+    <script type ="text/javascript" src="indexjs.js"></script>
+    <script type="text/javascript" src="JQuaryjs/jquery-1.11.0.min.js"></script>
+    <script  src = "bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="index.css"/>
+    <script type ="text/javascript" src="indexjs.js"></script>
+    
+ <!--显示用户名在右上角-->
+<script>
+	var thisURL = window.location.search;
+	var loc = thisURL.substring(thisURL.lastIndexOf('=')+1, thisURL.length);
+	function  showvalf()
+	{
+	   if(loc != "")
+	  	 {
+	  	 	$("#loginState").html(loc);
+	  	 }
+	}
+</script>
+</head>
+
+<body onload="init()" class = "body">
+<span style="height: 80px;">
+    <img src="Image/logo.jpg" height="80px">
+</span>
+<span style="height: 80px; float:right;">
+    <img src="Image/didNtLogin.jpg" height="50px">
+    	<div id = "loginState" style = "color : blue; font-size: 10px; padding-top: 5px; padding-left:12px">未登录</div>
+</span>
+
+<!-- 导航栏 -->
+<nav class="navbar navbar-default">
+
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">首页</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">咨询医生</a></li>
+                    <li><a href="#">自助看病</a></li>
+                    <li><a href="#">购买药品</a></li>
+                    <li><a href="Forum.html" target = "blank">本站论坛</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">关于我们 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">联系我们</a></li>
+                            <li><a href="#">关于我们</a></li>
+                            <li><a href="#">加入我们</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">留言</a></li>
+                            <li role="separator" class="divider"></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Button to trigger modal -->
+
+                    <li><a href="#" data-toggle="modal" data-target="#login" data-whatever="@mdo">登陆</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#register" data-whatever="@mdo">注册</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" value = "站内搜索">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!-- 导航栏完 -->
+    
+    <!-- 快速挂号 -->
+    <div class = "container">
+        <div class = "col-lg-4 col-md-4 col-sm-12 col-xs-12" style="height: 300px; background-color: #2aabd2">
+            <!--设置透明度：filter:alpha(Opacity=60);-moz-opacity:0.6;opacity: 0.6; -->
+            <div style=" width: 100%; height: 250px; margin-top: 20px; background-color:#ffffff; ">
+                <form >
+                    <div style="padding-top: 10px;"><b>快速挂号</b></div>
+                    </br>
+                    <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <select  class = "form-control" id = "Hospital" onchange="SelectHospital(this.value)">
+                            <option>选择医院</option>
+                                <option value = "0">西京医院</option>
+                                <option value = "1">东京医院</option>
+                        </select>
+                        </br>
+                    </div>
+                    <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <select class = "form-control" id = "administrative">
+                            <option>选择科室</option>
+                        </select>
+                        </br>
+                        <select  class = "form-control" id = "Doctor">
+                            <option>选择医生</option>
+                        </select>
+                        </br>
+                    </div>
+                    <center> <input type="submit" class = "form-control"
+                                    style="width : 100px; color: white; background-color: #0078D7">
+                    </center>
+                </form>
+            </div>
+        </div>
+        <div class = "col-lg-8 col-md-8 col-sm-12 col-xs-12" style = "height: 300px">
+            <img src=""  id = "lunbotu" width="100%" height="300px"/>
+        </div>
+    </div>
+    
+    <!-- 快速挂号完 -->
+    
+    <!-- 查看科室对应症状 -->
+    <div class = "container" id = "other">
+            <b>症状查看</b>
+                <div id = "keshi">
+                    <div class = "col-lg-4 col col-md-4 col-md-4 col-xs-12" >
+                        <b>常见疾病</b>
+                        <a href = "#" id = "1">急诊科</a>
+                        <a href = "#" id = "2">儿科</a>
+                        <a href = "#" id = "3">眼科</a>
+                        <a href = "#" id = "4">口腔科</a>
+                        <a href = "#">皮肤性病科  </a>
+                        <a href = "#">内分泌科  </a>
+                        <a href = "#">骨科</a>
+                        <a href = "#">肝胆外科</a>
+                        <a href = "#">泌尿外科 </a>
+                        <a href = "#">头颈外科 </a>
+                        <a href = "#">心血管内科 </a>
+                        <a href = "#">神经内科</a>
+                        <a href = "#">肛肠外科 </a>
+                        <a href = "#">乳腺甲状腺外科</a>
+                        <a href = "#">整形、激光美容外科</a>
+                        <a href = "#">神经外科</a>
+                        <a href = "#">心胸外科</a>
+                        <a href = "#">消化内科</a>
+                        <a href = "#"> 呼吸内科</a>
+                        <a href = "#">中医、中西医结合科</a>
+                        <a href = "#">血液、肿瘤科</a>
+                </div>
+                <div class = "col-lg-4 col-xs-12">
+                    <b>妇科</b>
+                    <a href = "#">产科</a>
+                    <a href = "#">肾内科</a>
+                    <a href = "#">放射科</a>
+                    <a href = "#">病理科</a>
+                    <a href = "#">高压氧科</a>
+                    <a href = "#">麻醉科</a>
+                    <a href = "#">护理部</a>
+                    <a href = "#">肠道科</a>
+                    <a href = "#">预防保健科</a>
+                    <a href = "#">康复理疗科</a>
+                    <a href = "#">药剂科</a>
+                    <a href = "#">康复理疗科 </a>
+                    <a href = "#">预防保健科 </a>
+                    <a href = "#">心血管内科</a>
+                    <a href = "#">循环系统</a>
+                    <a href = "#">呼吸系统</a>
+                    <a href = "#">血液内科</a>
+                    <a href = "#">传染科</a>
+                    <a href = "#">神经内科</a>
+                    <a href = "#">肿瘤科</a>
+                    <a href = "#">耳鼻喉科</a>
+                </div>
+                    <div class = "col-lg-4 col-xs-12">
+                        <b>男科</b>
+                        <a href = "#">眼科</a>
+                        <a href = "#">口腔科</a>
+                        <a href = "#">心理医学科</a>
+                        <a href = "#">疼痛科</a>
+                        <a href = "#">内科</a>
+                        <a href = "#">肝胆外科</a>
+                        <a href = "#">神经外科</a>
+                        <a href = "#">五官科</a>
+                        <a href = "#">消化病科</a>
+                        <a href = "#">理疗科</a>
+                        <a href = "#">普通治疗科</a>
+                        <a href = "#">消化内科</a>
+                        <a href = "#">血液科</a>
+                        <a href = "#">老干科</a>
+                        <a href = "#">耳鼻喉科</a>
+                        <a href = "#">口腔科</a>
+                        <a href = "#">普通外科</a>
+                        <a href = "#">肝胆胰脾外科</a>
+                        <a href = "#">肛肠科</a>
+                        <a href = "#">泌尿外科</a>
+                        <a href = "#">烧伤科</a>
+                    </div>
+                </div>
+        </div>
+<!-- 查看科室对应症状完 -->
+<!-- 显示科室对应症状 -->
+		<div class = "container">
+	        <div id = "keshiInfo" class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	        </div>
+        </div>
+<!-- 显示科室对应症状完 -->
+
+<!-- 显示新闻和热门信息 -->
+<div class = "container">
+    </br>
+        <hr/>
+        <div class = "zixun" style="padding-top: 10px; color: #5a5a5a; font-family: 宋体">
+            <div class = "col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="border: solid #ebebeb 1px;">
+                <font color="black"><b>最新动态</b></font>
+                <ul style = "list-style:none">
+                    <li><a>上海人民医院成功研发免疫新药物</a></li>
+                    </br>
+                    <li><a>佳木斯医院成功治疗实际疑难杂症一例</a></li>
+                    </br>
+                    <li><a>美国总统莅临我院检查</a></li>
+                    </br>
+                    <li><a>北京市人民医院被评为最受欢迎的医院</a></li>
+                    </br>
+                    <li><a>陕西省西安市人民医院研究出一种长生不老的药物</a></li>
+                    </br>
+                </ul>
+                <div align="right" style="border: solid #ffffff; height: auto"><a>更多></a></div>
+            </div>
+            <div class = "col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="border: solid #ebebeb 1px">
+                <font color="black"><b>热门医院</b></font>
+                <table>
+                    <tr>
+                        <td>&nbsp<img src="Image/jmsY.png"/></td>
+                        <td>&nbsp佳木斯市中医院</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp<img src="Image/bjdxszY.png"/></td>
+                        <td>&nbsp北京大学深圳医院</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp<img src="Image/hljY.png"/></td>
+                        <td>&nbsp黑龙江医院</td>
+                    </tr>
+                </table>
+                <div align="right" style="border: solid #ffffff; height: auto"><a>更多></a></div>
+            </div>
+            <div class = "col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="border: solid #ebebeb 1px">
+                <font color="black"><b>热门医生</b></font>
+                <table>
+                    <tr>
+                        <td>&nbsp<img src="Image/DoctorWang.png" class="img-rounded"/></td>
+                        <td>&nbsp呼吸内科&nbsp王建和</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp<img src="Image/DoctorHuang.png" class="img-rounded"/></td>
+                        <td>&nbsp骨科&nbsp黄一生</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp<img src="Image/DoctorZhao.png" class="img-rounded"/></td>
+                        <td>&nbsp神经内科&nbsp赵向前</td>
+                    </tr>
+
+                </table>
+                    <div align="right" style="border: solid #ffffff; height: auto"><a>更多></a></div>
+            </div>
+
+            <div class = "col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="border: solid #ebebeb 1px">
+                <font color="black"><b>健康资讯</b></font>
+                <ul style="list-style:none">
+                    <li><a>关于孩子补铁</a></li>
+                    </br>
+                    <li><a>小孩在冬季如何提高免疫力</a></li>
+                    </br>
+                    <li><a>熬夜的危害</a></li>
+                    </br>
+                    <li><a>怎么吃东西健康</a></li>
+                    </br>
+                    <li><a>如何锻炼身体能够变得强壮</a></li>
+                    </br>
+                    <li><a>老人怎么保持健康的身体</a></li>
+                </ul>
+                <div align="right" style="border: solid #ffffff; height: auto"><a>更多></a></div>
+            </div>
+            <div class = "col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="border: solid #ebebeb 1px">
+                <font color="black"><b>医院公告</b></font>
+                <ul style="list-style:none">
+                    <li><a>长沙市第四医院不锈钢病床采购项目公开招标公告</a></li>
+                    </br>
+                    <li><a>山东中医院第三方社会满意度调查项目中标公示</a></li>
+                    </br>
+                    <li><a>湖北第四医院第三方社会满意度调查项目公开招标公告</a></li>
+                    </br>
+                    <li><a>广州第四医院诊疗卡院内招标项目中标公示</a></li>
+                    </br>
+                    <li><a>湖南第四医院血透机维保采购项目招标公告</a></li>
+                    </br>
+                    <li><a>广西第四医院人才网站合作服务项目采购询价邀请公告..</a></li>
+                </ul>
+                <div align="right" style="border: solid #ffffff; height: auto"><a>更多></a></div>
+            </div>
+            <div class = "col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="border: solid #ebebeb 1px">
+                <font color="black"><b>人才招聘</b></font>
+                <ul style="list-style:none">
+                    <li><a>长沙市第四医院医联体工作人员招聘公告</a></li>
+                    </br>
+                    <li><a>2017年长沙市第四医院公开招聘劳务派遣护理人员（第二批）各项考核成绩暨入</a></li>
+                    </br>
+                    <li><a>2017年黑龙江临床医技行政后勤公开招聘工作人员各项考核成绩暨入围</a></li>
+                    </br>
+                    <li><a>2017年深圳中医院 公开招聘工作人员考核（面试）公告</a></li>
+                    </br>
+                    <li><a>长沙市第四医院2017年公开招聘劳务派遣护理人员(第二批)笔试成绩及入围考核</a></li>
+                </ul>
+                <div align="right" style="border: solid #ffffff; height: auto"><a>更多></a></div>
+            </div>
+
+        </div>
+    </div>
+<!-- 显示新闻和热门信息完 -->
+
+<!--登录-->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">用户登录</h4>
+            </div>
+
+            <div class="modal-body">
+                <form action="jsp/login.jsp" method="post">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">用户名</label>
+                        <input type="text" class="form-control" id="pUserName" name = "pUserName">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">密码</label>
+                        <input type="password" class="form-control" id="pPassword" name = "pPassword">
+                    </div>
+                    <button type="submit"  onmouseover = "checkLogin()"class="btn btn-primary" id = "loginBtn">登录</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+                <!--<button type="submit" class="btn btn-primary">登录</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--登录完-->
+<!--注册-->
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">用户注册</h4>
+            </div>
+
+            <div class="modal-body">
+                <form action="jsp/register.jsp" method="get">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">用户名</label>
+                        <input type="text" class="form-control" id="registerpUserName" name = "registerpUserName">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">性别：</label>
+                        男<input type="radio" name = "registerpSex" id = "sexMan">
+                        女<input type="radio" name = "registerpSex" id = "sexWoman">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">设置登录密码</label>
+                        <input type="password" class="form-control" id="registerpPassword" name = "registerpPassword">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">确认密码</label>
+                        <input type="password" class="form-control" id="twiceregistepPassword" name = "twiceregistepPassword">
+                    </div>
+                    <button type="submit" onmouseover = "checkRegister()" class="btn btn-primary">注册</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+                <!--<button type="submit" class="btn btn-primary">登录</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+</br>
+<!--注册完-->
+
+<!-- 底部 -->
+<div class = "container">
+        <div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12" style="height: 155px">
+            <img src="Image/hezuohuoban1.jpg">
+        </div>
+        <div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <img src="Image/hezuohuoban2.jpg" >
+        </div>
+        <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+            <div style="width: 100%; height: 220px; background-color: #F8F8F8">
+                </br>
+                <center>Copyright©2012-2016 陕西省西安市西安科技大学 All Rights Reserved.
+                  		  粤ICP备10093378号 互联网药品信息服务资格证书</center>
+                </br>
+                <center>友情链接：西安科技大学主页</center>
+                </br>
+                <center>关于我们</center>
+                </br>
+                <center>帮助中心</center>
+                </br>
+                <center>意见反馈</center>
+            </div>
+        </div>
+</div>
+<!-- 底部完 -->
+</body>
+</html>

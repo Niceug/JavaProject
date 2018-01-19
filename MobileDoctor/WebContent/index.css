@@ -1,0 +1,19 @@
+.zixun div{
+    border: solid #ebebeb 1px;
+    height: 320px;
+}
+#other{
+    font-family: 宋体;
+}
+.body{
+
+}
+.body a:link,a:active,a:hover,a:visited{
+    font-size: 12px;
+    color: #3c3c3c;
+    text-decoration: none;
+}
+.body a:hover{
+    font-weight: 500;
+    font-size: 16px;
+}
