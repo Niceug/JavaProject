@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: com.tencent.view.LoginFrame
+Class-Path: . lib/c3p0-0.9.1.2.jar lib/commons-dbutils-1.4.jar lib/mysql-connector-java-5.1.40-bin.jar lib/sqljdbc2008.jar
+Created-By: LTP
