@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" android:background="#39AEFF">
+   
+	
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#000000"
+        android:text="用户消费信息查询"
+        android:textAppearance="?android:attr/textAppearanceLarge" />    <LinearLayout 
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+	
+     <TextView
+	        android:id="@+id/textView3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp"
+	        android:text="饭卡号：" android:layout_marginLeft="10dp" android:textColor="#ffffff"/>
+	   
+     <EditText
+	        android:id="@+id/editMealCardId"
+	        android:hint="例：1027" 
+    		android:textStyle="italic"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" android:textColor="#E5E5E5" android:layout_marginTop="10dp"  android:layout_marginRight="10dp">
+	    </EditText>
+	</LinearLayout>
+ <TextView
+	        android:id="@+id/textView3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp"
+	        android:text="请输入查询的时间段（例：20180320）" android:layout_marginLeft="10dp" android:textColor="#ffffff"/>
+     <LinearLayout 
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+
+	    <TextView
+	        android:id="@+id/textView3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp"
+	        android:text="开始时间" android:layout_marginLeft="10dp" android:textColor="#ffffff"/>	
+	
+	     <EditText
+	        android:id="@+id/editStartTime"
+	        android:hint="例：20180321" 
+    		android:textStyle="italic"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" android:textColor="#E5E5E5" android:layout_marginTop="10dp"  android:layout_marginRight="10dp">
+	    </EditText>
+	</LinearLayout>
+	<LinearLayout 
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+
+	    <TextView
+	        android:id="@+id/textView3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp"
+	        android:text="结束时间" android:layout_marginLeft="10dp" android:textColor="#ffffff"/>
+	
+	
+	     <EditText
+	        android:id="@+id/editEndTime"
+	        android:hint="例：20180325" 
+    		android:textStyle="italic"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" android:textColor="#E5E5E5" android:layout_marginTop="10dp"  android:layout_marginRight="10dp">
+	    </EditText>
+	</LinearLayout>
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:text="查询"/>
+    
+    <TextView
+        android:id="@+id/showState"
+        android:layout_width="280dp"
+        android:layout_height="85dp"
+        android:textColor="#000000"
+        android:background="#ffffff"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="70dp"
+         />
+
+</LinearLayout>
