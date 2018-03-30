@@ -1,0 +1,12 @@
+//user用户表数据库语句
+create table user(username varchar(20) not null primary key, password varchar(20) not null);
+
+
+//parseBlog博客数据库语句
+//博文名称title,博文链接href
+create table parseBlog(pid int auto_increment primary key,title varchar(100) not null, href varchar(100) not null);
+
+//store商城数据库语句
+(商品ID，商品名称，商品价格， 商品数量， 商品描述)；
+create table store(waresID int auto_increment primary key,waresName varchar(100) not null, waresPrice float(7, 2) not null, waresCount int, waresDescription varchar(100), img varchar(200));
+insert into store values(3, "IPhone8", 8888.88, 10, "IPhone美版非常好，成色新，刚买的", "http://www.baidu.com/tupian.jpg");
