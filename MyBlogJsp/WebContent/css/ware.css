@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+.wareInfo-left {
+	width:600px;
+	height:500px;
+}
+
+.buyInfo-right {
+	padding-top:50px;
+	width:400px;
+	height:500px;
+}
+
+.btn {
+	border-radius:2px;
+}

@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+body{
+	font-size:12px;
+	background-color:#F5F6F7;
+}
+#main-content a:link,a:active,a:hover,a:visited{
+	color:#000000;
+    font-size:12px;
+    text-decoration: none;
+}
+#main-content {
+	border : 1px solid #939393;
+	width:800px; 
+    height:1500px; 
+    background-color : #ffffff; 
+    margin-left : auto; 
+    margin-right : auto;
+}
+#nav-tag {
+	color:#6fb7ff;
+	font-size:12px;
+}

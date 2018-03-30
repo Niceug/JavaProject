@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+body{
+	margin:0, 0;
+	background-color:#F5F6F7;
+}
+
+#main-content a:link,a:active,a:hover,a:visited{
+    color: #393939;
+    font-size:12 px;
+    text-decoration: none;
+}
