@@ -1,0 +1,112 @@
+
+l实现部门、职务、职称等基本信息的管理；
+l实现教师信息的管理；
+l实现可以科研项目的申报、审批管理；
+l实现科研项目的验收管理；
+l创建默认，并邦定到科研项目的验收标志，使其默认值为“未验收”；
+l创建触发器，验收项目时自动修改项目的验收标志为“验收通过”；
+l创建存储过程统计个院系科研项目的申报和完成数量；
+l建立数据库相关表之间的参照完整性约束。
+
+create database projectManage;
+use projectManage;
+create table administrator(username varchar(20) primary key not null, password varchar(20) not null);
+insert into administrator values('root', '123');
+
+create table teacher(TeacherNo int primary key not null, 
+TeacherName varchar(20) not null,
+Sex char(2),
+ZhiWu varchar(20),
+ZhiCheng varchar(20),
+BuMen varchar(20),
+YuanXi varchar(50),
+Tel varchar(50),
+Location varchar(100)
+);
+
+insert into teacher values(1, 'tom', 'M', '教师', '教授', '财政', '计算机学院', '15245464546', '北京市朝阳区');
+
+create table project(ProNo int primary key not null, ProName varchar(50),
+TeacherNo int, TeacherName varchar(20), YuanXi varchar(50), ProType varchar(20), ProForm varchar(20), ProTime long, ProText varchar(200), Memo varchar(200), Checking varchar(10), Pass varchar(10)
+);
+
+//创建触发器语句
+//先创建一个表用来记录插入数据的数量；
+create table checked_count(checked_count int default 0);
+//先插入一条语句
+insert into checked_count values(0);
+
+//创建触发器,验收一个，验收数量加1
+create trigger trigger_checkedCount
+after update
+on project for each row
+update checked_count set checked_count = checked_count + 1
+where new.pass ='是' and old.pass = '否';
+
+//存储过程
+
+
+//查询各个学院申报项目总数的存储过程
+drop procedure if exists CountProc;
+delimiter //
+create procedure CountProc(in _YuanXi varchar(50), out projectCount int) 
+begin 
+select count(*) into projectCount from project where YuanXi=_YuanXi;
+end
+//
+delimiter ;
+
+//查询全员项目验收通过的存储过程
+drop procedure if exists CountChecked;
+delimiter //
+create procedure CountChecked(in _YuanXi varchar(50), out projectCount int) 
+begin 
+select count(*) into projectCount from project where YuanXi=_YuanXi and Checking='是';
+end
+//
+delimiter ;
+
+//其他的存储过程练习
+	select * from t1;
+end //
+delimiter;
+call proc();
+
+
+//统计插入数据的个数的存储过程
+drop procedure if exists CountProc
+delimiter //
+create procedure CountProc()
+begin
+select count(*) from t1;
+end //
+delimiter ;
+call CountProc;
+
+//查询各个学院申报项目总数的存储过程
+drop procedure if exists CountProc;
+delimiter //
+create procedure CountProc(in _YuanXi varchar(50), out projectCount int) 
+begin 
+select count(*) into projectCount from project where YuanXi=_YuanXi;
+end
+//
+delimiter ;
+set @_YuanXi="人工智能";
+call CountProc(@_YuanXi, @projectCount);
+select @_YuanXi, @projectCount;
+
+//查询全员项目验收通过的存储过程
+drop procedure if exists CountChecked;
+delimiter //
+create procedure CountChecked(in _YuanXi varchar(50), out projectCount int) 
+begin 
+select count(*) into projectCount from project where YuanXi=_YuanXi and Checking='是';
+end
+//
+delimiter ;
+set @_YuanXi="人工智能";
+call CountChecked(@_YuanXi, @projectCount);
+select @_YuanXi, @projectCount ;
+
+
