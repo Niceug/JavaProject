@@ -1,0 +1,60 @@
+@CHARSET "UTF-8";
+body{
+	
+	background-repeat:no-repeat ;
+	background-size:100% 100%; 
+	background-attachment: fixed;
+}
+#head{
+	font-size:50px; 
+	width:400px;
+	height:80px;
+	color:white; 
+	font-family: 微软雅黑;
+	position: absolute;
+    top: 0;
+    bottom: 40%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#ilogin{
+	border-radius:5px;
+	opacity: 0.9;
+	background-color: white;
+	width:500px;
+	height:400px;
+	position: absolute;
+    top: 20%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.title{
+	font-size:30px;
+	height:80px; 
+	width:80px;
+	margin-top:50px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#option{
+	width:150px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#loginItem{
+	width:400px;
+	position: absolute;
+    top: 33%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.input-group{
+	width:400px;
+}

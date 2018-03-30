@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name = "viewport" content="width = device-width, initial-scale = 1 user-scalable = no">
+<link rel = "stylesheet" href = "/CanteenFoodMachine/bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css" />
+<link rel = "stylesheet" href = "/CanteenFoodMachine/css/login.css">
+<script type="text/javascript" src="/CanteenFoodMachine/JQuery/jquery-1.11.0.min.js"></script>
+<script  src = "/CanteenFoodMachine/bootstrap/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+
+<title>用户登录</title>
+</head>
+<body background="image/loginbg.jpg">
+	<div class = ".container-fluid">
+		<!-- 登录 -->
+		<div id = "head">大学生食堂管理</div>
+		       <div id = "ilogin">
+		       <div style = "height:20px; background-color:#339AFF; width:100%"></div>
+		       <div class = "title" >登录</div>
+		       <form action = "/CanteenFoodMachine/login" method = "post">
+		       		<div id = "loginItem">
+			       		<!-- 用户名 -->
+			       		<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1"><span class = "glyphicon glyphicon-user"></span></span>
+						  <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name = "username">
+						</div>
+							<br>
+						<!-- 密码 -->
+						  <div class="input-group">
+							  <span class="input-group-addon" id="basic-addon1"><span class = "glyphicon glyphicon-lock"></span></span>
+							  <input type="text" class="form-control" placeholder="Password" aria-describedby="basic-addon1" name = "password">
+						</div>
+						<br>
+						<div id = "option">
+				       		<input type = "checkbox" style = "width:20px; height:20px" value = "true">
+				       		<span style = "color:gray; ">管理员</span>
+				   		 </div>
+				   		 <br>
+				   		 <center><input type = "submit" style = "width:300px; height:50px" value = "登录" class = "btn btn-primary">
+				   		 </center>
+		       		</div>
+		       		</form>
+			   </div>
+	</div>
+
+</body>
+</html>
