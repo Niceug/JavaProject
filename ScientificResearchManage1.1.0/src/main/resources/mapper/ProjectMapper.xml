@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ltp.mappers.ProjectMapper">
+
+    <resultMap id="Project" type="com.ltp.entities.Project">
+
+        <result property="proNo" column="pro_no" jdbcType="INTEGER" javaType="int" />
+
+        <result property="proName" column="pro_name" jdbcType="VARCHAR" javaType="string" />
+
+        <result property="teacherNo" column="teacher_no" javaType="int" jdbcType="INTEGER" />
+
+        <result property="teacherName" column="teacher_name" javaType="string" jdbcType="VARCHAR" />
+
+        <result property="department" column="department" jdbcType="VARCHAR" javaType="string" />
+
+        <result property="proType" column="pro_type" jdbcType="VARCHAR" javaType="string" />
+
+        <result property="proForm" column="pro_form" jdbcType="VARCHAR" javaType="string" />
+
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+
+        <result property="content" column="content" jdbcType="VARCHAR" javaType="string" />
+
+        <result property="memo" column="memo" jdbcType="VARCHAR" javaType="string" />
+
+        <result property="checked" column="checked" jdbcType="VARCHAR" javaType="string" />
+
+        <result property="pass" column="pass" jdbcType="VARCHAR" javaType="string" />
+    </resultMap>
+
+    <resultMap id="DepartmentList" type="java.lang.String">
+        <result property="hash" column="department" javaType="string" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <select id="queryAllProject" resultMap="Project">
+        select * from project
+    </select>
+
+    <select id="queryCheckedDB" resultMap="Project">
+        select * from project where Checked='是'
+    </select>
+
+    <insert id="addProject">
+        insert into project(
+        pro_no, pro_name, teacher_no,
+        teacher_name, department, pro_type,
+        pro_form, create_time, content,
+        memo, checked, pass
+        )
+        values(
+        #{proNo},#{proName}, #{teacherNo},
+        #{teacherName}, #{department}, #{proType},
+        #{proForm}, #{createTime}, #{content},
+        #{memo}, #{checked}, #{pass});
+    </insert>
+
+    <select id="queryProjectByNo" resultMap="Project">
+        select * from project where pro_no = #{pNo}
+    </select>
+
+    <select id="queryCheckedProject" resultMap="Project">
+        select * from project where pro_no = #{pNo} and checked = '是'
+    </select>
+
+    <update id="checkProject">
+        update project
+        set pro_name = #{proName},
+        teacher_no = #{teacherNo},
+        teacher_name = #{teacherName},
+        department = #{department},
+        pro_type = #{proType},
+        pro_Form = #{proForm},
+        create_time = #{createTime},
+        content = #{content},
+        memo = #{memo},
+        checked = #{checked},
+        pass = #{pass}
+        where pro_no = #{proNo}
+    </update>
+    <update id="passProject">
+        update project
+        set pass = #{pass}
+        where pro_no = #{proNo}
+    </update>
+
+    <select id="getDepartmentList" resultMap="DepartmentList">
+        select distinct department from project
+    </select>
+
+    <select id="getProjectCountDB" resultType="java.lang.Integer">
+        select count(pro_no) as project_count from project
+    </select>
+
+    <select id="getProjectCountByDepartment" resultType="java.lang.Integer">
+        select count(pro_no) as project_count
+        where department = #{department}
+    </select>
+
+    <select id="getCheckedCountByDepartment" resultType="java.util.Map">
+        select department, count(pro_no) as project_count from project
+        where checked = '是'
+        group by department
+        order by project_count desc
+    </select>
+
+</mapper>
