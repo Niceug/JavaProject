@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.bittech.mybatis.mapper.MemoGroupMapper">
+
+    <!--<cache type="com.bittech.mybatis.plugin.MyCache">-->
+        <!--<property name="maxSize" value="512"/>-->
+    <!--</cache>-->
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache">
+        <property name="timeToIdleSeconds" value="3600"/><!--1 hour-->
+        <property name="timeToLiveSeconds" value="3600"/><!--1 hour-->
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+
+    <resultMap id="memoGroup" type="MemoGroup">
+        <id property="id" column="id" javaType="int" jdbcType="INTEGER"/>
+        <result property="name" column="name" javaType="string" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="created_time" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="modifyTime" column="modify_time" javaType="date"
+                jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="basic_column">
+        id,
+        name,
+        created_time,
+        modify_time
+    </sql>
+
+    <select id="queryAll" parameterType="string" resultMap="memoGroup">
+        select
+        <include refid="basic_column"/>
+        from memo_group order by ${columnName}
+    </select>
+
+    <select id="queryById" parameterType="int" resultMap="memoGroup">
+        select *
+        from memo_group
+        where id = #{id}
+    </select>
+
+    <select id="queryByIdWithHashMap" resultType="hashmap">
+        select *
+        from memo_group
+        where id = #{id}
+    </select>
+
+    <select id="queryByIdWithResultType" resultType="com.bittech.mybatis.entity.MemoGroup">
+        select
+            id           as 'id',
+            name         as 'name',
+            created_time as 'createdTime',
+            modify_time  as 'ModifyTime'
+        from memo_group
+        where id = #{id}
+    </select>
+
+    <insert id="insetMemoGroup" parameterType="com.bittech.mybatis.entity.MemoGroup" useGeneratedKeys="true" keyColumn="id"
+            keyProperty="id">
+        insert into memo_group (name, created_time) values (#{name}, #{createdTime})
+    </insert>
+
+    <update id="updateMemoGroup">
+        update memo_group
+        set name = #{name}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMemoGroup">
+        delete from memo_group
+        where id = #{id}
+    </delete>
+</mapper>

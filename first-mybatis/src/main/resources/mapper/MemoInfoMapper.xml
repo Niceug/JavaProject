@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bittech.mybatis.mapper.MemoInfoMapper">
+
+    <!--<cache type="com.bittech.mybatis.plugin.MyCache">-->
+    <!--<property name="maxSize" value="512"/>-->
+    <!--</cache>-->
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache">
+        <property name="timeToIdleSeconds" value="3600"/><!--1 hour-->
+        <property name="timeToLiveSeconds" value="3600"/><!--1 hour-->
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+
+    <resultMap id="memoInfoMap" type="com.bittech.mybatis.entity.MemoInfo">
+        <id property="id" column="id"/>
+        <result property="groupId" column="group_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="privacy" column="is_protected"/>
+        <result property="backGround" column="background"/>
+        <result property="remind" column="is_remind"/>
+        <result property="remindTime" column="remind_time" jdbcType="TIMESTAMP"/>
+        <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="modifyTime" column="modify_time"
+                jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="basic_column">
+        id,
+        group_id,
+        title,
+        content,
+        is_protected,
+        is_remind,
+        background,
+        remind_time,
+        created_time,
+        modify_time
+    </sql>
+
+    <sql id="basic_property_column">
+        id as 'id',
+        title as 'title',
+        content as 'content',
+        group_id as 'groupId',
+        background as 'backGround',
+        created_time as 'createdTime',
+        modify_time as 'modifyTime'
+    </sql>
+
+    <insert id="insertMemoInfo" parameterType="com.bittech.mybatis.entity.MemoInfo" useGeneratedKeys="true"
+            keyProperty="id"
+            keyColumn="id">
+        INSERT INTO memo_info
+        (group_id, title, content, created_time)
+        VALUES
+            (#{groupId}, #{title}, #{content}, #{createdTime})
+    </insert>
+
+    <update id="updateMemoInfo" parameterType="com.bittech.mybatis.entity.MemoInfo">
+        update memo_info
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="content!=null">
+                content=#{content},
+            </if>
+            <if test="privacy!=null">
+                is_protected=#{privacy},
+            </if>
+        </set>
+        where id =#{id}
+    </update>
+
+    <update id="updateMemoInfoByMemo">
+        update memo_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="title!=null">
+                title = #{title},
+            </if>
+
+            <if test="content!=null">
+                content = #{content},
+            </if>
+
+            <if test="background!=null">
+                background = #{background},
+            </if>
+
+            <if test="privacy!=null">
+                is_protected = #{privacy},
+            </if>
+        </trim>
+
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMemoInfoById">
+        DELETE FROM memo_info
+        WHERE id = #{memoInfoId}
+    </delete>
+
+
+    <select id="queryByPage" resultMap="memoInfoMap">
+        select
+        <include refid="basic_column"/>
+        from memo_info
+        order by ${columnName}
+        limit #{pageSize} offset #{pageOffset}
+    </select>
+
+    <select id="queryByPageWithObject" parameterType="com.bittech.mybatis.common.Page" resultMap="memoInfoMap">
+        select
+        <include refid="basic_column"/>
+        from memo_info
+        order by ${orderColumnName}
+        limit #{pageSize} offset #{pageOffset}
+    </select>
+
+
+    <select id="queryMemoInfoByGroupId" resultMap="memoInfoMap">
+        select
+        <include refid="basic_column"/>
+        from memo_info
+        where group_id = #{groupId};
+    </select>
+
+
+    <!-- 根据ID查询便签信息 -->
+    <!--<select id="queryMemoInfoById" resultMap="memoInfoMap">-->
+    <!--select-->
+    <!--<include refid="basic_column"/>-->
+    <!--from memo_info where id = #{id};-->
+    <!--</select>-->
+
+    <select id="queryMemoInfoById" resultType="com.bittech.mybatis.entity.MemoInfo">
+        SELECT
+            id           AS 'id',
+            title        AS 'title',
+            content      AS 'content',
+            group_id     AS 'groupId',
+            background   AS 'backGround',
+            created_time AS 'createdTime',
+            modify_time  AS 'modifyTime'
+        FROM memo_info
+        WHERE id = #{id};
+    </select>
+
+    <select id="queryMemoInfoByTitleAndContentAndCreatedTime"
+            resultMap="memoInfoMap">
+        select
+        <include refid="basic_column"/>
+        from memo_info
+        <where>
+            <if test="title != null">
+                and title = #{title}
+            </if>
+
+            <if test="content != null">
+                and content = #{content}
+            </if>
+
+            <if test="createdTime != null">
+                and created_time = #{createdTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryMemoInfoByPrivacy" resultMap="memoInfoMap">
+        select <include refid="basic_column" />
+        from memo_info
+        <where>
+            <if test="privacy != null">
+                is_protected = #{privacy}
+            </if>
+
+            <if test="remind != null">
+                is_remind = #{remind}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryMemoInfoFromIds" resultMap="memoInfoMap">
+        select <include refid="basic_column" />
+        from memo_info
+        where id in
+        <foreach collection="list" open="(" close=")" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>
